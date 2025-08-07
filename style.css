@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    min-height: 100vh;
+    background-color: rgba(87, 86, 86, 0.585);
+    display: flex;
+    align-items: center;
+}
+
+/*the calculator container */
+main{
+    background-color: #364733;
+    height: 600px;
+    width: 400px;
+    margin: 0 auto;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 10px 16px;
+}
+
+/* Name of calculator */
+h3{
+    font-size: 25px;
+    padding: 4px;
+    text-align: left;
+    margin-bottom: 12px;
+    color: white;
+    font-style: italic;
+}
+/* input */
+#input-text{
+    color: white;
+    font-size: 3em;
+    background-color: black;
+    width: 95%;
+    height: 10%;
+    outline: none;
+    border-radius: 5px;
+    text-align: right;
+    padding: 10px;
+    margin: 0 auto;
+}
+
