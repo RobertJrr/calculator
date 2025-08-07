@@ -10,44 +10,37 @@
 
     <!-- main container - calculator -->
     <main id="calculator">
-        <section id="top">
+        <section id="display">
             <h3>Robert's Instruments - TI-00</h3>
             <input type="text" id="input-text" value="0" readonly>
         </section>
-        <!-- all button container -->
-        <div id="all-buttons">
-            <!-- container for number buttons -->
-            <div id="number-buttons-container">
-                <!-- container for clear button -->
-                <div id="clear-button-container">
-                    <button id="clear-button">AC</button>
-                </div>
-                <div>
-                    <button class="number-button">7</button>
-                    <button class="number-button">8</button>
-                    <button class="number-button">9</button>
-                </div>
-                <div>
-                    <button class="number-button">4</button>
-                    <button class="number-button">5</button>
-                    <button class="number-button">6</button>
-                </div>
-                <div>
-                    <button class="number-button">1</button>
-                    <button class="number-button">2</button>
-                    <button class="number-button">3</button>
-                </div>
-                <div id="zero-container">
-                    <button>0</button>
-                </div>
+        <div id="button-container">
+            <div id="mini-button-container1" class="all-button-containers">
+                <button id="clear-button">AC</button>
+                <button class="operator-button">/</button>
             </div>
-            <!-- container for button operations -->
-            <div id="operation-buttons-container">
-                <button class="operation-button">÷</button>
-                <button class="operation-button">×</button>
-                <button class="operation-button">-</button>
-                <button class="operation-button">+</button>
-                <button class="operation-button">=</button>
+            <div id="mini-button-container2" class="all-button-containers">
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                <button class="operator-button">x</button>
+            </div>
+            <div id="mini-button-container3" class="all-button-containers">
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button class="operator-button">-</button>
+            </div>
+            <div id="mini-button-container4" class="all-button-containers">
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button class="operator-button">+</button>
+            </div>
+            <div id="mini-button-container5" class="all-button-containers">
+                <button>0</button>
+                <button>.</button>
+                <button class="operator-button" id="equal-operator">=</button>
             </div>
         </div>
     </main>
