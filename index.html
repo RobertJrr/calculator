@@ -8,10 +8,48 @@
 </head>
 <body>
 
+    <!-- main container - calculator -->
     <main id="calculator">
-        <h3>Robert's Instruments - TI-00</h3>
-        <input type="text" id="input-text" value="0" readonly>
-        
+        <section id="top">
+            <h3>Robert's Instruments - TI-00</h3>
+            <input type="text" id="input-text" value="0" readonly>
+        </section>
+        <!-- all button container -->
+        <div id="all-buttons">
+            <!-- container for number buttons -->
+            <div id="number-buttons-container">
+                <!-- container for clear button -->
+                <div id="clear-button-container">
+                    <button id="clear-button">AC</button>
+                </div>
+                <div>
+                    <button class="number-button">7</button>
+                    <button class="number-button">8</button>
+                    <button class="number-button">9</button>
+                </div>
+                <div>
+                    <button class="number-button">4</button>
+                    <button class="number-button">5</button>
+                    <button class="number-button">6</button>
+                </div>
+                <div>
+                    <button class="number-button">1</button>
+                    <button class="number-button">2</button>
+                    <button class="number-button">3</button>
+                </div>
+                <div id="zero-container">
+                    <button>0</button>
+                </div>
+            </div>
+            <!-- container for button operations -->
+            <div id="operation-buttons-container">
+                <button class="operation-button">÷</button>
+                <button class="operation-button">×</button>
+                <button class="operation-button">-</button>
+                <button class="operation-button">+</button>
+                <button class="operation-button">=</button>
+            </div>
+        </div>
     </main>
     
     <script src="script.js"></script>

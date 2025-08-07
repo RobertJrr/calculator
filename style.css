@@ -8,7 +8,7 @@
 
 body{
     min-height: 100vh;
-    background-color: rgba(87, 86, 86, 0.585);
+    background-color: rgba(151, 151, 151, 0.585);
     display: flex;
     align-items: center;
 }
@@ -23,6 +23,12 @@ main{
     display: flex;
     flex-direction: column;
     box-shadow: 10px 10px 16px;
+}
+
+#top{
+    height: 150px;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Name of calculator */
@@ -40,11 +46,49 @@ h3{
     font-size: 3em;
     background-color: black;
     width: 95%;
-    height: 10%;
+    height: 40%;
     outline: none;
     border-radius: 5px;
     text-align: right;
     padding: 10px;
     margin: 0 auto;
 }
+
+/* operations container */
+#all-buttons{
+    background-color: #4c504b;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+button{
+    cursor: pointer;
+}
+
+#operation-buttons-container{
+    display: flex;
+    flex-direction: column;
+}
+
+#number-buttons-container{
+
+}
+
+#operation-buttons-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 120px;
+    padding: 10px;
+}
+.operation-button{
+    
+    text-decoration: none;
+}
+/* <!-- container for clear button -->
+            <div id="clear-button-container">
+                <button id="clear-button">AC</button>
+            </div> */
+
 
