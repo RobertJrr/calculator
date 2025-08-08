@@ -1,3 +1,4 @@
+
 :root{
     --buttonHeight: 50px;
     --buttonWidth: 70px;
@@ -9,8 +10,8 @@
     padding: 0;
     border: 0;
     box-sizing: border-box;
+    font-style: oblique;
 }
-
 
 body{
     min-height: 100vh;
@@ -28,7 +29,9 @@ main{
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    box-shadow: 10px 10px 16px;
+    box-shadow: 10px 10px 16px black, 
+    -20px -20px 50px var(--greenColor);
+
     align-items: center;
 }
 
@@ -51,6 +54,7 @@ h3{
 /* input */
 #input-text{
     color: white;
+    border: 2px solid rgb(186, 184, 184);
     font-size: 3em;
     background-color: black;
     width: 95%;
@@ -63,34 +67,40 @@ h3{
 }
 
 
-/* button container  for all the buttons*/
-#button-container{
+/* button container for all the buttons*/
+#main-button-container{
     background-color: rgb(129, 129, 129);
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
     margin-bottom: 16px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    border: 2px solid black;
+    width: 70%;
+
 }
 
-/* making each button */
-.all-button-containers{
+/* effecting each mini button CONTAINER */
+.button-container{
     display: flex;
     flex-grow: 1;
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    gap: 10px;
 }
 
-/* all buttons */
-.all-button-containers > button{
+/* effecting all buttons*/
+button{
     border: 1px solid black;
     font-size: 1.5em;
     width: var(--buttonWidth);
     height: var(--buttonHeight);
     border-radius: 50%;
     cursor: pointer;
+    width: 56.5px;
+    height: 50px;
 }
 
 /* styling the operation buttons */
@@ -99,11 +109,19 @@ h3{
 }
 
 /* styling clear button */
+#clear-button{
+    background-color: black;
+    color: white;
+}
 
 
 /* styling equals button */
 #equal-operator{
     background-color: rgb(239, 175, 56);
+}
+/* adding hover effects to the operator buttons */
+.operator-button:hover{
+    background-color: #70956a;
 }
 
 
