@@ -77,6 +77,13 @@ class Calculator {
         return Calculator.OPERATORS.includes(lastValue) && Calculator.OPERATORS.includes(firstValue);
     }
 
+    // NEXT STEP: Operators!
+
+
+    // compute(){
+
+    // }
+
 
 }
 

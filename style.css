@@ -14,9 +14,27 @@
 body{
     min-height: 100vh;
     background-color: rgba(151, 151, 151, 0.585);
+    
+}
+
+header{
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: var(--greenColor);
+    font-size: 26px;
+    border-bottom: 2px solid white;
+    color: white;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
+
+img{
+    height: 40px;
+    width: 40px;
+    display: block;
+}
+
 
 /*the calculator container */
 main{
@@ -29,8 +47,8 @@ main{
     flex-direction: column;
     box-shadow: 10px 10px 16px black, 
     -20px -20px 50px var(--greenColor);
-
     align-items: center;
+    margin-bottom: 50px;
 }
 
 /* display container for title and input */
