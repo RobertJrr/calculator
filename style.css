@@ -1,7 +1,5 @@
 
 :root{
-    --buttonHeight: 50px;
-    --buttonWidth: 70px;
     --greenColor: #364733;
 }
 
@@ -62,7 +60,7 @@ h3{
     outline: none;
     border-radius: 5px;
     text-align: right;
-    padding: 10px;
+    padding: 12px;
     margin: 0 auto;
 }
 
@@ -95,12 +93,12 @@ h3{
 button{
     border: 1px solid black;
     font-size: 1.5em;
-    width: var(--buttonWidth);
-    height: var(--buttonHeight);
     border-radius: 50%;
     cursor: pointer;
     width: 56.5px;
     height: 50px;
+    box-shadow: 0 5px #1b1919;
+
 }
 
 /* styling the operation buttons */
@@ -112,16 +110,45 @@ button{
 #clear-button{
     background-color: black;
     color: white;
+    box-shadow: 0 5px #2a2929;
 }
 
 
 /* styling equals button */
 #equal-operator{
-    background-color: rgb(239, 175, 56);
+    background-color: rgb(250, 185, 66);
 }
+
+
 /* adding hover effects to the operator buttons */
 .operator-button:hover{
-    background-color: #70956a;
+    background-color: #6d8e68;
+}
+
+#equal-operator:hover{
+    background-color: rgb(183, 142, 67);
+}
+
+#clear-button:hover{
+    background-color: #383636;
+}
+
+.number-button:hover, #decimal-button:hover{
+    background-color: #5d5d5d;
+}
+
+/* adding active(pressing button) effect to all buttons*/
+button:active{
+    box-shadow: 0 2px #322e2e;
+    transform: translateY(5px);
+}
+
+#clear-button:active{
+    /* makes the  shadow smaller  and change color on press*/
+    box-shadow: 0 2px #322e2e;
+    /* change y positioning on press by 5px */
+    transform: translateY(5px);
+
 }
 
 
