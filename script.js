@@ -8,13 +8,17 @@
 //Calculator class to hold all variables,functions and operations
 //to execute on calculator 
 class Calculator {
-    static OPERATORS = ["+", "-", "x", "/","."];
+    static OPERATORS = ["+", "-", "x", "/"];
 
+    // constructor for the calculator class
     constructor(buttons,display,clearButton,equalButton) {
 
+        //to check if calculator has been cleared or reset
         this.beenReset = true;
+        //to compute 
         this.finalCalculation = 0;
-        this.operations = [];
+        //hold inputs
+        let inputArr = [];
         
         // keep track of operations
         this.currentOperation = "";
@@ -42,24 +46,33 @@ class Calculator {
 
             //to hold current operator value
             this.currentOperation = button.value;
-            //if last input was operator and attempt to enter another, do not allow
-            if(this.wasOperator(this.lastOperation,this.currentOperation)){
+            //do not allow multiple operators to be input, if so, replace last operator with current
+            if(this.lastInputWasOperator(this.lastOperation,this.currentOperation)){
+                this.display.value = this.replaceOperator(this.lastOperation, this.currentOperation);
+                this.lastOperation = this.currentOperation;
                 return;
             }
 
+            
             let text = button.value;
             if(this.beenReset){
-                this.display.value = text;
+                if(this.isNumeric(text)){
+                    this.display.value = text;
+                }else{
+                    this.display.value += text;
+                }
                 this.beenReset = false;
             }else{
                 this.display.value += text;
             }
+
             // current operation now becomes last operation
             this.lastOperation = this.currentOperation;
 
         });
     }
 
+    // to clear calculator
     clear(){
         this.clearButton.addEventListener("click",() =>{
             this.handleClear(this.display);
@@ -73,16 +86,30 @@ class Calculator {
         this.lastOperation = "";
     }
 
-    wasOperator(lastValue,firstValue){
-        return Calculator.OPERATORS.includes(lastValue) && Calculator.OPERATORS.includes(firstValue);
+    isNumeric(value){
+        return !isNaN(Number(value));
     }
 
-    // NEXT STEP: Operators!
+    lastInputWasOperator(lastValue,firstValue){
+        //if "." is pressed twice in a row, return true
+        if(lastValue === "." && firstValue === "."){
+            return true;
+        }
+        return (Calculator.OPERATORS.includes(lastValue) && Calculator.OPERATORS.includes(firstValue));
+
+    }
+
+    replaceOperator(lastOperation,currentOperation){
+        let replacementText = this.display.value;
+        let lastOccurrence = replacementText.lastIndexOf(lastOperation);
+        replacementText = replacementText.substring(0,lastOccurrence) + currentOperation;
+        return replacementText;
+    }
+
+    compute(){
 
 
-    // compute(){
-
-    // }
+    }
 
 
 }
