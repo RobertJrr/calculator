@@ -11,117 +11,107 @@ class Calculator {
     static OPERATORS = ["+", "-", "x", "/"];
 
     // constructor for the calculator class
-    constructor(buttons,display,clearButton,equalButton) {
+    constructor(numberButtons,operatorButtons,equalButton,clearButton,display) {
 
+         // references to the nodes
+        this.numberButtons = numberButtons;
+        this.operatorButtons = operatorButtons;
+        this.equalButton = equalButton;
+        this.clearButton = clearButton;
+        this.display = display;
+        
         //to check if calculator has been cleared or reset
         this.beenReset = true;
-        //to compute 
-        this.finalCalculation = 0;
-        //hold inputs
-        let inputArr = [];
-        
-        // keep track of operations
-        this.currentOperation = "";
-        this.lastOperation = "";
 
-        // references to the nodes
-        this.buttons = buttons;
-        this.display = display;
-        this.clearButton = clearButton;
-        this.equalButton = equalButton;
+        //to compute 
+        this.calculation = 0;   
+
+        //hold inputs
+        this.inputs = [];
+
+        //hold operands for doing actual calculation
+        this.operands = [];
     }
 
     start(){
-        this.input();
-        this.clear();
+        this.numberInput();
+        this.clearInput();
+        this.operatorInput();
+
     }
 
-    input(){
-        this.buttons.forEach((button) => {
-            this.handleInput(button);
-        });
+    //for number input
+    numberInput(){
+        this.numberButtons.forEach((button) =>{
+            this.handleNumberInput(button);
+        })
     }
-    handleInput(button){
+    handleNumberInput(button){
         button.addEventListener("click",()=>{
+            this.updateDisplay(button.value);
+        })
+    }
 
-            //to hold current operator value
-            this.currentOperation = button.value;
-            //do not allow multiple operators to be input, if so, replace last operator with current
-            if(this.lastInputWasOperator(this.lastOperation,this.currentOperation)){
-                this.display.value = this.replaceOperator(this.lastOperation, this.currentOperation);
-                this.lastOperation = this.currentOperation;
-                return;
-            }
+    //for operator input
+    operatorInput(){
+        this.operatorButtons.forEach(button =>{
+            this.handleOperatorInput(button);
+        })
+    }
 
-            
-            let text = button.value;
-            if(this.beenReset){
-                if(this.isNumeric(text)){
-                    this.display.value = text;
-                }else{
-                    this.display.value += text;
-                }
-                this.beenReset = false;
-            }else{
-                this.display.value += text;
-            }
-
-            // current operation now becomes last operation
-            this.lastOperation = this.currentOperation;
+    handleOperatorInput(button){
+        button.addEventListener("click",()=>{
+            //join number inputs into one and push to operand
+            this.operands.push(this.inputs.join(""));
+            this.operands.push(button.value);
+            //set display to the current operand
+            this.display.value = button.value;
+            console.log(this.operands);
 
         });
     }
 
-    // to clear calculator
-    clear(){
+    //clear input
+    clearInput(){
         this.clearButton.addEventListener("click",() =>{
-            this.handleClear(this.display);
+            this.handleClearInput();
         });
     }
 
-    handleClear(display){
-        display.value = "0";
-        this.finalCalculation = 0;
+    handleClearInput(){
+        this.display.value = "0";
         this.beenReset = true;
-        this.lastOperation = "";
     }
 
-    isNumeric(value){
-        return !isNaN(Number(value));
-    }
-
-    lastInputWasOperator(lastValue,firstValue){
-        //if "." is pressed twice in a row, return true
-        if(lastValue === "." && firstValue === "."){
-            return true;
+    // to update the display
+    updateDisplay(value){
+        if(this.inputs.includes(value) && value === "."){
+            return;
         }
-        return (Calculator.OPERATORS.includes(lastValue) && Calculator.OPERATORS.includes(firstValue));
-
+        
+        if(this.beenReset){
+            this.display.value = value;
+            this.beenReset = false;
+            this.inputs.push(value);
+            return;
+        }else{
+            this.display.value += value;  
+            this.inputs.push(value);
+        }
     }
-
-    replaceOperator(lastOperation,currentOperation){
-        let replacementText = this.display.value;
-        let lastOccurrence = replacementText.lastIndexOf(lastOperation);
-        replacementText = replacementText.substring(0,lastOccurrence) + currentOperation;
-        return replacementText;
-    }
-
-    compute(){
-
-
-    }
-
 
 }
 
+
 function main(){
 
-    const buttons = document.querySelectorAll(".number-button, .operator-button, #decimal-button");
+    const numberButtons = document.querySelectorAll(".number-button,#decimal-button");
+    const operatorButtons = document.querySelectorAll(".operator-button");
+    const equalButton = document.querySelector("#equal-operator");
     const display = document.querySelector("input");
     const clearButton = document.querySelector("#clear-button");
-    const equalButton = document.querySelector("#equal-operator");
 
-    const calculator = new Calculator(buttons,display,clearButton,equalButton);
+    const calculator = new Calculator(numberButtons,operatorButtons,equalButton,clearButton,display);
 
     calculator.start();
 }
