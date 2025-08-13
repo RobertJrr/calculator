@@ -24,20 +24,20 @@ class Calculator {
         this.beenReset = true;
 
         //to compute 
-        this.calculation = 0;   
-
-        //hold inputs
+        this.calculation = 0;  
+        
         this.inputs = [];
+        this.numbers = [];
 
-        //hold operands for doing actual calculation
-        this.operands = [];
+        this.currentOperator = null;
+        this.wasOperator = false;
+
     }
 
     start(){
         this.numberInput();
         this.clearInput();
         this.operatorInput();
-
     }
 
     //for number input
@@ -48,26 +48,21 @@ class Calculator {
     }
     handleNumberInput(button){
         button.addEventListener("click",()=>{
-            this.updateDisplay(button.value);
-        })
-    }
-
-    //for operator input
-    operatorInput(){
-        this.operatorButtons.forEach(button =>{
-            this.handleOperatorInput(button);
-        })
-    }
-
-    handleOperatorInput(button){
-        button.addEventListener("click",()=>{
-            //join number inputs into one and push to operand
-            this.operands.push(this.inputs.join(""));
-            this.operands.push(button.value);
-            //set display to the current operand
-            this.display.value = button.value;
-            console.log(this.operands);
-
+            if(this.inputs.includes(".") && button.value === "."){
+            return;
+            }
+      
+            if(this.beenReset || this.wasOperator){
+                this.display.value = button.value;
+                this.beenReset = false;
+                this.wasOperator = false;
+                this.inputs.push(button.value);
+                return;
+            }else{
+                this.display.value += button.value;  
+                this.inputs.push(button.value);
+            }
+            
         });
     }
 
@@ -81,24 +76,75 @@ class Calculator {
     handleClearInput(){
         this.display.value = "0";
         this.beenReset = true;
+        this.clearInputArr();
+        this.clearNumberArr();
     }
 
-    // to update the display
-    updateDisplay(value){
-        if(this.inputs.includes(value) && value === "."){
-            return;
-        }
-        
-        if(this.beenReset){
-            this.display.value = value;
-            this.beenReset = false;
-            this.inputs.push(value);
-            return;
-        }else{
-            this.display.value += value;  
-            this.inputs.push(value);
+    operatorInput(){
+        this.operatorButtons.forEach((button)=>{
+            this.handleOperatorInput(button);
+        });
+    }
+
+    handleOperatorInput(button){
+        button.addEventListener("click",()=>{
+            this.wasOperator = true;
+
+            this.currentOperator = button.value;
+            this.display.value = this.currentOperator;
+            this.numbers.push(this.inputs.join(""));
+            this.clearInputArr();
+
+            console.log(this.numbers);
+        });
+    }
+
+    handleEquals(){
+        this.equalButton.addEventListener("click",() =>{
+            if(this.numbers.length < 2){
+                return;
+            }
+
+            //call calculation based on current operand
+            this.compute();
+            
+        })
+    }
+
+    compute(){
+        if(this.currentOperator === "+"){
+            this.sum();
+        }else if(this.currentOperator === "-"){
+
+        }else if(this.currentOperator === "x"){
+            
+        }else if(this.currentOperator === "/"){
+            
         }
     }
+    clearInputArr(){
+        // for(let i = 0; i < this.inputs.length; i++){
+        //     this.inputs.pop();
+        // }
+
+        this.inputs = [];
+    }
+    clearNumberArr(){
+        // for(let i = 0; i < this.numbers.length; i++){
+        //     this.numbers.pop();
+        // }
+        this.numbers = [];
+
+    }
+
+    sum(){
+        this.calculation = this.numbers
+        .map(num => Number(num))
+        .reduce((accumulator,currentValue) =>{
+            return accumulator + currentValue;
+        },this.calculation);
+    }
+  
 
 }
 
