@@ -13,60 +13,39 @@ class Calculator {
     // constructor for the calculator class
     constructor(numberButtons,operatorButtons,equalButton,clearButton,display) {
 
-         // references to the nodes
+        // references to the nodes
         this.numberButtons = numberButtons;
         this.operatorButtons = operatorButtons;
         this.equalButton = equalButton;
         this.clearButton = clearButton;
         this.display = display;
+
+        //hold inputs
+        this.inputs = [];
         
         //to check if calculator has been cleared or reset
         this.beenReset = true;
 
         //to compute 
         this.calculation = 0;  
-        
-        this.inputs = [];
-        this.numbers = [];
 
+        //hold operands
+        this.firstOperand = null;
+        this.secondOperand = null;
+
+        //to hold currentOperator
         this.currentOperator = null;
-        this.wasOperator = false;
+       
 
     }
 
+    //-----start program------
     start(){
         this.numberInput();
         this.clearInput();
-        this.operatorInput();
     }
 
-    //for number input
-    numberInput(){
-        this.numberButtons.forEach((button) =>{
-            this.handleNumberInput(button);
-        })
-    }
-    handleNumberInput(button){
-        button.addEventListener("click",()=>{
-            if(this.inputs.includes(".") && button.value === "."){
-            return;
-            }
-      
-            if(this.beenReset || this.wasOperator){
-                this.display.value = button.value;
-                this.beenReset = false;
-                this.wasOperator = false;
-                this.inputs.push(button.value);
-                return;
-            }else{
-                this.display.value += button.value;  
-                this.inputs.push(button.value);
-            }
-            
-        });
-    }
-
-    //clear input
+     //--------to clear input--------
     clearInput(){
         this.clearButton.addEventListener("click",() =>{
             this.handleClearInput();
@@ -76,73 +55,48 @@ class Calculator {
     handleClearInput(){
         this.display.value = "0";
         this.beenReset = true;
-        this.clearInputArr();
-        this.clearNumberArr();
+        this.calculation = 0;
     }
 
-    operatorInput(){
-        this.operatorButtons.forEach((button)=>{
-            this.handleOperatorInput(button);
-        });
+    //-------for number input-------
+    numberInput(){
+        this.numberButtons.forEach((button) =>{
+            this.handleNumberInput(button);
+        })
     }
-
-    handleOperatorInput(button){
+    handleNumberInput(button){
         button.addEventListener("click",()=>{
-            this.wasOperator = true;
-
-            this.currentOperator = button.value;
-            this.display.value = this.currentOperator;
-            this.numbers.push(this.inputs.join(""));
-            this.clearInputArr();
-
-            console.log(this.numbers);
-        });
-    }
-
-    handleEquals(){
-        this.equalButton.addEventListener("click",() =>{
-            if(this.numbers.length < 2){
+            if(this.beenReset){
+                this.display.value = button.value;
+                this.beenReset = false;
+                return;
+            }
+            if(this.containsDecimal(button.value)){
                 return;
             }
 
-            //call calculation based on current operand
-            this.compute();
+
             
-        })
+
+            this.display.value += button.value;
+            this.appendValue(button.value);
+            
+            
+        });
     }
 
-    compute(){
-        if(this.currentOperator === "+"){
-            this.sum();
-        }else if(this.currentOperator === "-"){
 
-        }else if(this.currentOperator === "x"){
-            
-        }else if(this.currentOperator === "/"){
-            
+    containsDecimal(value){
+        let string = this.display.value;
+        if(this.display.value.includes(".") && value === "."){
+            return true;
+        }else{
+            return false;
         }
     }
-    clearInputArr(){
-        // for(let i = 0; i < this.inputs.length; i++){
-        //     this.inputs.pop();
-        // }
-
-        this.inputs = [];
-    }
-    clearNumberArr(){
-        // for(let i = 0; i < this.numbers.length; i++){
-        //     this.numbers.pop();
-        // }
-        this.numbers = [];
-
-    }
-
-    sum(){
-        this.calculation = this.numbers
-        .map(num => Number(num))
-        .reduce((accumulator,currentValue) =>{
-            return accumulator + currentValue;
-        },this.calculation);
+    appendValue(value){
+        this.inputs.push(value);
+        console.log(this.inputs);
     }
   
 
