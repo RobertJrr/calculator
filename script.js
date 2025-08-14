@@ -35,6 +35,9 @@ class Calculator {
 
         //to hold currentOperator
         this.currentOperator = null;
+
+        //if full number appended
+        this.numberEntered = false;
        
 
     }
@@ -59,6 +62,7 @@ class Calculator {
         this.calculation = 0;
         this.inputs = [];
         this.currentOperator = null;
+        this.numberEntered = false;
     }
 
     //-------for number input-------
@@ -69,9 +73,10 @@ class Calculator {
     }
     handleNumberInput(button){
         button.addEventListener("click",()=>{
-            if(this.beenReset || this.currentOperator === null){
+            if(this.beenReset){
                 this.display.value = button.value;
                 this.beenReset = false;
+                this.numberEntered = true;
                 this.appendValue(button.value);
                 return;
             }
@@ -80,12 +85,9 @@ class Calculator {
                 return;
             }
 
-            if(this.currentOperator !== null){
-                this.display.value = button.value;
-            }
-
             this.display.value += button.value;
             this.appendValue(button.value);
+            this.numberEntered = true;
         });
     }
 
@@ -98,11 +100,13 @@ class Calculator {
 
     handleOperatorInput(button){
         button.addEventListener("click",() =>{
-            // if reset, can add negative sign at start
-            if(this.beenReset && button.value !== "-"){
+            // if reset, can add negative sign at start (dont allow other signs)
+            if(!this.numberEntered && button.value !== "-"){
                 return;
-            }else if(this.beenReset && button.value === "-"){
+            }else if(!this.numberEntered && button.value === "-"){
+                this.display.value = button.value;
                 this.beenReset = false;
+                return;
             }
 
             this.display.value = button.value;
