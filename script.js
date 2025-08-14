@@ -43,6 +43,7 @@ class Calculator {
     start(){
         this.numberInput();
         this.clearInput();
+        this.operatorInput();
     }
 
      //--------to clear input--------
@@ -56,6 +57,8 @@ class Calculator {
         this.display.value = "0";
         this.beenReset = true;
         this.calculation = 0;
+        this.inputs = [];
+        this.currentOperator = null;
     }
 
     //-------for number input-------
@@ -66,28 +69,51 @@ class Calculator {
     }
     handleNumberInput(button){
         button.addEventListener("click",()=>{
-            if(this.beenReset){
+            if(this.beenReset || this.currentOperator === null){
                 this.display.value = button.value;
                 this.beenReset = false;
+                this.appendValue(button.value);
                 return;
             }
+            //if decimal already present and user enters another decimal
             if(this.containsDecimal(button.value)){
                 return;
             }
 
-
-            
+            if(this.currentOperator !== null){
+                this.display.value = button.value;
+            }
 
             this.display.value += button.value;
             this.appendValue(button.value);
-            
-            
         });
+    }
+
+    operatorInput(){
+      this.operatorButtons.forEach((button)=>{
+        this.handleOperatorInput(button);
+      })
+
+    }
+
+    handleOperatorInput(button){
+        button.addEventListener("click",() =>{
+            // if reset, can add negative sign at start
+            if(this.beenReset && button.value !== "-"){
+                return;
+            }else if(this.beenReset && button.value === "-"){
+                this.beenReset = false;
+            }
+
+            this.display.value = button.value;
+            this.currentOperator = button.value;
+            this.inputs = [];
+        });
+
     }
 
 
     containsDecimal(value){
-        let string = this.display.value;
         if(this.display.value.includes(".") && value === "."){
             return true;
         }else{
