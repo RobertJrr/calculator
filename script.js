@@ -36,8 +36,9 @@ class Calculator {
         //to hold currentOperator
         this.currentOperator = null;
 
-        //if full number appended
+        //to indicate if number was entered
         this.numberEntered = false;
+        this.operatorEntered = false; 
        
 
     }
@@ -63,6 +64,9 @@ class Calculator {
         this.inputs = [];
         this.currentOperator = null;
         this.numberEntered = false;
+        this.operatorEntered = false;
+        this.firstOperand = null;
+        this.secondOperand = null;
     }
 
     //-------for number input-------
@@ -73,10 +77,11 @@ class Calculator {
     }
     handleNumberInput(button){
         button.addEventListener("click",()=>{
+            this.numberEntered = true;
+
             if(this.beenReset){
                 this.display.value = button.value;
                 this.beenReset = false;
-                this.numberEntered = true;
                 this.appendValue(button.value);
                 return;
             }
@@ -85,12 +90,19 @@ class Calculator {
                 return;
             }
 
+            if(this.operatorEntered){
+                this.display.value = button.value;
+                this.appendValue(button.value);
+                this.operatorEntered = false;
+                return;
+            }
+
             this.display.value += button.value;
             this.appendValue(button.value);
-            this.numberEntered = true;
         });
     }
 
+    //-------for operator input-------
     operatorInput(){
       this.operatorButtons.forEach((button)=>{
         this.handleOperatorInput(button);
@@ -100,7 +112,7 @@ class Calculator {
 
     handleOperatorInput(button){
         button.addEventListener("click",() =>{
-            // if reset, can add negative sign at start (dont allow other signs)
+            // if no number entered, and operator isnt "-" 
             if(!this.numberEntered && button.value !== "-"){
                 return;
             }else if(!this.numberEntered && button.value === "-"){
@@ -109,14 +121,32 @@ class Calculator {
                 return;
             }
 
+            this.setOperands();
+            console.log(this.secondOperand);
             this.display.value = button.value;
             this.currentOperator = button.value;
+            this.operatorEntered = true;
             this.inputs = [];
         });
 
     }
 
+    //-------for equal input-------
+    equalInput(){
+        this.equalButton.addEventListener("click",() =>{
+            this.handleClearInput();
+        })
+    }
 
+    handleEqualInput(){
+
+    }
+
+
+
+
+
+    //to check if decimal is already present in array of inputs
     containsDecimal(value){
         if(this.display.value.includes(".") && value === "."){
             return true;
@@ -124,10 +154,23 @@ class Calculator {
             return false;
         }
     }
+
+    //to append input value to array (useful to join string and create number)
     appendValue(value){
         this.inputs.push(value);
         console.log(this.inputs);
     }
+
+
+    setOperands(){
+        if(this.firstOperand === null){
+            this.firstOperand = Number(this.display.value);
+        }else if(this.secondOperand === null){
+            this.secondOperand = Number(this.display.value);
+        }
+    }
+
+    
   
 
 }
