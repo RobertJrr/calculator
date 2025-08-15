@@ -1,9 +1,3 @@
-//note: for in gets the property itself (so in array, use index returned to access element)
-// note: for of gets the actual value stored
-
-//next steps:
-//get the total string and split based on +,*,/ and - signs
-
 
 //Calculator class to hold all variables,functions and operations
 //to execute on calculator 
@@ -39,6 +33,7 @@ class Calculator {
         //to indicate if number was entered
         this.numberEntered = false;
         this.operatorEntered = false; 
+        this.onSecondOperand = false;
        
 
     }
@@ -48,6 +43,7 @@ class Calculator {
         this.numberInput();
         this.clearInput();
         this.operatorInput();
+        this.equalInput();
     }
 
      //--------to clear input--------
@@ -65,6 +61,7 @@ class Calculator {
         this.currentOperator = null;
         this.numberEntered = false;
         this.operatorEntered = false;
+        this.onSecondOperand = false;
         this.firstOperand = null;
         this.secondOperand = null;
     }
@@ -73,7 +70,7 @@ class Calculator {
     numberInput(){
         this.numberButtons.forEach((button) =>{
             this.handleNumberInput(button);
-        })
+        });
     }
     handleNumberInput(button){
         button.addEventListener("click",()=>{
@@ -106,8 +103,7 @@ class Calculator {
     operatorInput(){
       this.operatorButtons.forEach((button)=>{
         this.handleOperatorInput(button);
-      })
-
+      });
     }
 
     handleOperatorInput(button){
@@ -121,11 +117,16 @@ class Calculator {
                 return;
             }
 
+            //if on second number, do not allow second operator input....
+            if(this.onSecondOperand && this.inputs.length !== 0){
+                return;
+            }
+
+            this.operatorEntered = true;
+
             this.setOperands();
-            console.log(this.secondOperand);
             this.display.value = button.value;
             this.currentOperator = button.value;
-            this.operatorEntered = true;
             this.inputs = [];
         });
 
@@ -134,17 +135,14 @@ class Calculator {
     //-------for equal input-------
     equalInput(){
         this.equalButton.addEventListener("click",() =>{
-            this.handleClearInput();
+            this.handleEqualInput();
         })
     }
 
     handleEqualInput(){
-
+        this.setOperands();
+        this.compute();
     }
-
-
-
-
 
     //to check if decimal is already present in array of inputs
     containsDecimal(value){
@@ -165,13 +163,30 @@ class Calculator {
     setOperands(){
         if(this.firstOperand === null){
             this.firstOperand = Number(this.display.value);
+            this.onSecondOperand = true;
         }else if(this.secondOperand === null){
             this.secondOperand = Number(this.display.value);
         }
     }
 
-    
-  
+    compute(){
+        if(this.currentOperator === "+"){
+            this.sum();
+        }else if(this.currentOperator === "-"){
+            
+        }else if(this.currentOperator === "*"){
+            
+        }else if(this.currentOperator === "/"){
+            
+        }
+    }
+
+    sum(){
+        this.calculation = this.firstOperand + this.secondOperand;
+        this.display.value = this.calculation;
+        //set first oeprand to the result
+        this.firstOperand = this.calculation;
+    }
 
 }
 
