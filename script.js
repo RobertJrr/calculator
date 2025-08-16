@@ -36,8 +36,6 @@ class Calculator {
         this.operatorEntered = false; 
         this.onSecondOperand = false;
         this.equalButtonPressed = false; 
-       
-
     }
 
     //-----start program------
@@ -192,7 +190,7 @@ class Calculator {
     }
 
     updateCalcAndDisplayValues(){
-        this.display.value = this.calculation;
+        this.display.value = this.calculation.toFixed(4);
         this.firstOperand = this.calculation;
     }
 
@@ -215,6 +213,13 @@ class Calculator {
         this.calculation = this.firstOperand / this.secondOperand;
         this.updateCalcAndDisplayValues();
     }
+
+    setDecimalPlaces(){
+
+    }
+
+    
+
 
 }
 
