@@ -190,7 +190,7 @@ class Calculator {
     }
 
     updateCalcAndDisplayValues(){
-        this.display.value = this.calculation.toFixed(4);
+        this.display.value = this.calculation.toFixed(2);
         this.firstOperand = this.calculation;
     }
 
@@ -213,14 +213,6 @@ class Calculator {
         this.calculation = this.firstOperand / this.secondOperand;
         this.updateCalcAndDisplayValues();
     }
-
-    setDecimalPlaces(){
-
-    }
-
-    
-
-
 }
 
 
