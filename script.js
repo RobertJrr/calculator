@@ -34,6 +34,7 @@ class Calculator {
         this.numberEntered = false;
         this.operatorEntered = false; 
         this.onSecondOperand = false;
+        this.equalButtonPressed = false; //LEFT OFF HEREEEEEEEE
        
 
     }
@@ -124,7 +125,10 @@ class Calculator {
 
             this.operatorEntered = true;
 
-            this.setOperands();
+            if(this.firstOperand === null){
+                this.setOperands();
+            }
+
             this.display.value = button.value;
             this.currentOperator = button.value;
             this.inputs = [];
@@ -140,8 +144,13 @@ class Calculator {
     }
 
     handleEqualInput(){
+        //sets the second operand
         this.setOperands();
+        //compute based on current operator
         this.compute();
+        this.onSecondOperand = false;
+        this.operatorEntered = false;
+        this.secondOperand = null;
     }
 
     //to check if decimal is already present in array of inputs
@@ -171,21 +180,39 @@ class Calculator {
 
     compute(){
         if(this.currentOperator === "+"){
-            this.sum();
+            this.add();
         }else if(this.currentOperator === "-"){
-            
-        }else if(this.currentOperator === "*"){
-            
+            this.subtract();
+        }else if(this.currentOperator === "x"){
+            this.multiply();
         }else if(this.currentOperator === "/"){
-            
+            this.divide();
         }
     }
 
-    sum(){
-        this.calculation = this.firstOperand + this.secondOperand;
+    updateCalcAndDisplayValues(){
         this.display.value = this.calculation;
-        //set first oeprand to the result
         this.firstOperand = this.calculation;
+    }
+
+    add(){
+        //do calculation
+        this.calculation = this.firstOperand + this.secondOperand;
+        this.updateCalcAndDisplayValues();
+    }
+
+    subtract(){
+        this.calculation = this.firstOperand - this.secondOperand;
+        this.updateCalcAndDisplayValues();
+    }
+
+    multiply(){
+        this.calculation = this.firstOperand * this.secondOperand;
+        this.updateCalcAndDisplayValues();
+    }
+    divide(){
+        this.calculation = this.firstOperand / this.secondOperand;
+        this.updateCalcAndDisplayValues();
     }
 
 }
