@@ -1,4 +1,6 @@
 
+//Robert Melena
+
 //Calculator class to hold all variables,functions and operations
 //to execute on calculator 
 class Calculator {
@@ -16,7 +18,6 @@ class Calculator {
 
         //hold inputs
         this.inputs = [];
-        
         //to check if calculator has been cleared or reset
         this.beenReset = true;
 
@@ -34,7 +35,7 @@ class Calculator {
         this.numberEntered = false;
         this.operatorEntered = false; 
         this.onSecondOperand = false;
-        this.equalButtonPressed = false; //LEFT OFF HEREEEEEEEE
+        this.equalButtonPressed = false; 
        
 
     }
