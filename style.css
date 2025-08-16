@@ -43,6 +43,7 @@ main{
     width: 400px;
     margin: 0 auto;
     border-radius: 5px;
+    outline: 5px black ridge ;
     display: flex;
     flex-direction: column;
     box-shadow: 10px 10px 16px black, 
